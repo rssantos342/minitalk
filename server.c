@@ -6,7 +6,7 @@
 /*   By: ride-sou <ride-sou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 08:24:29 by ride-sou          #+#    #+#             */
-/*   Updated: 2023/05/26 08:28:16 by ride-sou         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:08:09 by ride-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ void	sigusr_handler(int signal)
 {
 	static int				bit;
 	static unsigned char	c;
-
-	bit = 0;
-	c = 0;
-
+	
 	if (signal == SIGUSR1)
-		c = (c << 1) | 0b00000001;
+	{
+		c = c | (0x01 << bit);
+		bit++;
+	}
 	else if (signal == SIGUSR2)
-		c = (c << 1);
-	bit++;
+		bit++;
 	if (bit == 8)
 	{
 		ft_printf("%c", c);
@@ -41,7 +40,7 @@ int	main(int ac, char **av)
 	if (ac != 1)
 	{
 		ft_printf("Try <./server>\n");
-		return (0);
+		return (1);
 	}
 	pid = getpid();
 	ft_printf("Server PID: %i\n", pid);
@@ -50,7 +49,6 @@ int	main(int ac, char **av)
 	{
 		signal(SIGUSR1, sigusr_handler);
 		signal(SIGUSR2, sigusr_handler);
-		pause();
 	}
 	return (0);
 }

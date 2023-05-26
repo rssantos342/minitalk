@@ -6,48 +6,48 @@
 /*   By: ride-sou <ride-sou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 08:24:25 by ride-sou          #+#    #+#             */
-/*   Updated: 2023/05/26 08:28:06 by ride-sou         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:07:46 by ride-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_send_bits(int pid, char *str)
+void	ft_send_bits(int pid, char c)
 {
 	int	bit;
-	int c;
 
 	bit = 0;
-	while(*str)
+	while (bit < 8)
 	{
-		c = *(str);
-		while (bit < 8)
-		{
-			if ((c << bit) & 0b10000000)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
-			bit++;
-			usleep(100);
-		}
-		str++;
-		bit = 0;
+		if ((c & (0x01 << bit)) != 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(100);
+		bit++;
 	}
 }
 
 int	main(int ac, char **av)
 {
 	int	pid;
+	int i;
 
+	i = 0;
 	if (ac != 3)
-	{	
+	{
 		ft_printf("Try <./client> <server id> and <string>\n");
 		return (1);
 	}
 	else
 	{
 		pid = ft_atoi(av[1]);
-		ft_send_bits(pid, av[2]);
+		while (av[2][i] != '\0')
+		{
+			ft_send_bits(pid, av[2][i]);
+			i++;
+		}
+		ft_send_bits(pid, '\n');
 	}
 	return (0);
 }

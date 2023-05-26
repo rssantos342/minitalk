@@ -6,7 +6,7 @@
 /*   By: ride-sou <ride-sou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 08:24:29 by ride-sou          #+#    #+#             */
-/*   Updated: 2023/05/26 12:08:09 by ride-sou         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:51:58 by ride-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	sigusr_handler(int signal)
 {
-	static int				bit;
-	static unsigned char	c;
+	static int				bit = 0;
+	static unsigned char	c = 0;
 	
 	if (signal == SIGUSR1)
 	{

@@ -6,7 +6,7 @@
 /*   By: ride-sou <ride-sou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 08:24:25 by ride-sou          #+#    #+#             */
-/*   Updated: 2023/05/29 12:56:53 by ride-sou         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:09:56 by ride-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_send_bits(int pid, char c)
 int	main(int ac, char **av)
 {
 	int	pid;
-	int i;
+	int	i;
 
 	i = 0;
 	if (ac != 3)
